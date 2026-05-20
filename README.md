@@ -1,4 +1,4 @@
-# 📝 Blog Django — Projet 3
+# 📝 Blog Django — Projet 3 (Class project)
 
 Application web de blog développée avec **Django 5.2**. Elle permet de créer, lire, modifier et supprimer des articles (posts) ainsi que des commentaires associés.
 
