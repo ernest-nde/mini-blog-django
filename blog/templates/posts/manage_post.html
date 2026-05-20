@@ -1,0 +1,132 @@
+{% extends 'base.html' %} {% block title %} {% if post.title %} {{ post.title }}
+{% else %} {{ "Mon Mini Blog - Ajout d'un post" }} {% endif %} {% endblock %} {% block content %} {% if post %}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow">
+        <div class="card-header bg-dark text-white">
+          <h4 class="mb-0">Édition du Post</h4>
+        </div>
+        <div class="card-body">
+          <form action="{% url 'update' post.id %}" method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+              <label for="title" class="form-label">Titre de l'article</label>
+              <input
+                type="text"
+                class="form-control"
+                id="title"
+                name="title"
+                value="{{ post.title }}"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="content" class="form-label">Contenu</label>
+              <textarea
+                class="form-control"
+                id="content"
+                name="content"
+                rows="10"
+              >
+{{ post.content }}</textarea
+              >
+            </div>
+            <div class="d-flex justify-content-between">
+              <a href="{% url 'index' %}" class="btn btn-link text-muted"
+                >Annuler</a
+              >
+              <button type="submit" class="btn btn-success px-4" title="Sauvegarder les modifications" onclick="return confirm('Êtes-vous sûr de vouloir modifier cet article?')">
+                Sauvegarder les modifications
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-save" viewBox="0 0 16 16">
+                  <path d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1z"/>
+                </svg>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% else %}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      {% if error %}
+      <div class="alert alert-danger fade show fst-italic" role="alert">
+        {{ error }}
+      </div>
+      {% endif %}
+      <div class="card shadow">
+        <div class="card-header bg-dark text-white">
+          <h4 class="mb-0">Ajouter un nouvel article</h4>
+        </div>
+        <div class="card-body">
+          <form action="{% url 'create' %}" method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+              <label for="title" class="form-label">Titre de l'article</label>
+              <input
+                type="text"
+                class="form-control"
+                id="title"
+                name="title"
+                placeholder="Entrez un titre accrocheur"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="content" class="form-label">Contenu</label>
+              <textarea
+                class="form-control"
+                id="content"
+                name="content"
+                rows="10"
+                placeholder="Écrivez votre article ici..."
+              ></textarea>
+            </div>
+            <div class="d-flex justify-content-between">
+              <a
+                href="{% url 'index' %}"
+                class="btn btn-link text-muted"
+                title="Annuler"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-x-circle-fill"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z"
+                  />
+                </svg>
+              </a>
+              <button
+                type="submit"
+                class="btn btn-primary px-4"
+                title="Publier l'article"
+              >Publier l'article
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-activity"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M6 2a.5.5 0 0 1 .47.33L10 12.036l1.53-4.208A.5.5 0 0 1 12 7.5h3.5a.5.5 0 0 1 0 1h-3.15l-1.88 5.17a.5.5 0 0 1-.94 0L6 3.964 4.47 8.171A.5.5 0 0 1 4 8.5H.5a.5.5 0 0 1 0-1h3.15l1.88-5.17A.5.5 0 0 1 6 2"
+                  />
+                </svg>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %} {% endblock %}
